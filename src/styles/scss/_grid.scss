@@ -1,0 +1,16 @@
+body {
+    overflow-x: hidden;
+    font-family: $roboto;
+    max-width: 1400px;
+    padding: 0 30px;
+    margin: 0 auto;
+    @include themed {
+        color: t(linkColor);
+        background-color: t(backgroundColor);
+    }
+}
+
+.content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
