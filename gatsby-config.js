@@ -1,8 +1,8 @@
 module.exports = {
     siteMetadata: {
-        title: `Mountain Central`,
-        description: `A simple starter to get up and developing quickly with Gatsby. It supports multiple languages, NetlifyCMS, styling with Sass, Material-UI components & dark mode`,
-        author: `Charbel Chahine`,
+        title: `Kyrgys Central`,
+        description: `A simple starter to get up and developing quickly with Gatsby. It supports multiple languages, Forestry.io, styling with Sass, Material-UI components & dark mode`,
+        author: `Nathaniel Fenton`,
     },
     plugins: [
         `gatsby-plugin-react-helmet`,
@@ -20,7 +20,6 @@ module.exports = {
             options: {
                 plugins: [
                     // 'gatsby-remark-autolink-headers',
-                    // `gatsby-plugin-netlify-cms-paths`,
                     {
                         resolve: `gatsby-remark-images`,
                         options: {
@@ -37,8 +36,8 @@ module.exports = {
         {
             resolve: `gatsby-plugin-manifest`,
             options: {
-                name: 'Mountain Central',
-                short_name: 'Mtn Central', // less than 12 characters
+                name: 'Kyrgyz Central',
+                short_name: 'Kyr Central', // less than 12 characters
                 start_url: `/`,
                 background_color: '#0E283F',
                 theme_color: '#0E283F',
@@ -71,12 +70,6 @@ module.exports = {
                 classNameLight: 'light-mode',
                 storageKey: 'darkMode',
                 minify: true,
-            },
-        },
-        {
-            resolve: `gatsby-plugin-netlify-cms`,
-            options: {
-                htmlTitle: 'Mountain Central CMS',
             },
         },
     ],
