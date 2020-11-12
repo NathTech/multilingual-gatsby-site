@@ -1,4 +1,16 @@
 ---
 label: Language
 hide_body: true
-fields: []
+fields:
+- name: language_name
+  type: text
+  config:
+    required: true
+  label: Language Name
+  description: The name of the language
+- name: language_code
+  type: text
+  config:
+    required: true
+  label: Language code
+  description: The 2 letter language code for this language, e.g. en, fr, de etc.
