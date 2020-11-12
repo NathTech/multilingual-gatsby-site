@@ -1,5 +1,5 @@
 ---
-label: Language
+label: Language Item
 hide_body: true
 fields:
 - name: language_name
