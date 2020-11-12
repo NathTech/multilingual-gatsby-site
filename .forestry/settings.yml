@@ -14,9 +14,8 @@ sections:
 - type: document
   path: src/data/languages.json
   label: Languages
-  match: "**/*"
 upload_dir: uploads
-public_path: "/uploads"
+public_path: "/src/assets/images"
 front_matter_path: ''
 use_front_matter_path: false
 file_template: ":filename:"
