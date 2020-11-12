@@ -1,4 +1,10 @@
 ---
 label: Page Template
 hide_body: false
-fields: []
+fields:
+- name: title
+  type: text
+  config:
+    required: true
+  label: Title
+  description: The translated title of the page
