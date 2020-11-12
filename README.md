@@ -76,6 +76,10 @@ Run `yarn sass` before making changes to any of the `.scss` files.
 The following steps-by-steps use [Forestry](https://www.forestry.com) to host the starter from GitHub. Other methods can be used to implement [Forestry](https://forestry.io).
 
 1. Sign in or make a [Forestry](https://forestry.io) account
+2. Click Add Site
+3. Choose Gatsby as the static site generator
+4. Choose GitHub (or the provider of your repo)
+5. access your admin section with {your-site-url}/admin
 
 ## Lighthouse Audit
 
