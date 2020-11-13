@@ -1,14 +1,13 @@
-de:
-  language_name: Deutsch
-  language_code: de
-uz:    
-  language_name: Узбек
-  language_code: uz
-ky:
-  language_name: Кыргиз
-  language_code: ky
-en:    
-  language_name: English
-  language_code: en
-
-
+languages:
+  -en:
+    language_name: Deutsch
+    language_code: de
+  -uz:    
+    language_name: Узбек
+    language_code: uz
+  -ky:
+    language_name: Кыргиз
+    language_code: ky
+  -en:    
+    language_name: English
+    language_code: en
