@@ -20,3 +20,18 @@ fields:
       section: languages
   label: Language
   description: Choose the language that this page is in
+- name: page
+  type: select
+  default: []
+  config:
+    required: false
+    options: []
+    source:
+      type: documents
+      section: menu1
+      file: src/data/menuStructure.json
+      path: pages
+  label: Page
+  description: Choose the page that this links to in the menu structure.<br><br>If
+    left blank, this page will only be accessible via it's url, and won't be included
+    in the menu
