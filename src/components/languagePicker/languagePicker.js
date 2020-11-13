@@ -1,9 +1,9 @@
 import React from 'react'
 import { navigate } from 'gatsby'
 import { useTranslation } from 'react-i18next'
-import { Menu, MenuItem, IconButton, Tooltip } from '@material-ui/core/'
+import { Menu, MenuItem, IconButton } from '@material-ui/core/'
 
-import { currentLanguages } from '../../i18n/config/currentLanguages'
+import { languageDetails, default_language as defaultLanguage } from '../../data/languages.json'
 import { usePageContext } from '../pageContext'
 
 import Globe from '../../assets/svg/navIcons/globe.svg'
@@ -14,6 +14,10 @@ function LanguagePicker() {
 
     const [anchorEl, setAnchorEl] = React.useState(null)
 
+    const makePath = (languageCode) => {
+        return languageCode === defaultLanguage ? '/' : `/${languageCode}`
+    }
+
     const handleOpenMenu = event => {
         setAnchorEl(event.currentTarget)
     }
@@ -22,30 +26,25 @@ function LanguagePicker() {
         setAnchorEl(null)
     }
 
-    const handleLangChange = lang => {
+    const handleLangChange = ({ language_code: languageCode }) => {
         handleCloseMenu()
-        i18n.changeLanguage(lang.shorthand)
-        navigate(`${lang.path}${originalPath}`)
+        i18n.changeLanguage(languageCode)
+        const path = makePath(languageCode)
+        navigate(`${path}${originalPath}`)
     }
 
     return (
         <>
-            <Tooltip
-                title="Language"
-                aria-label="Language"
-                classes={{ popper: 'navPopper', tooltip: 'navTooltip' }}
+            <IconButton
+                aria-haspopup="true"
+                aria-label="Language Selector"
+                aria-controls="lang-selector"
+                classes={{ root: 'navIconButton' }}
+                color="inherit"
+                onClick={handleOpenMenu}
             >
-                <IconButton
-                    aria-haspopup="true"
-                    aria-label="Language Selector"
-                    aria-controls="lang-selector"
-                    classes={{ root: 'navIconButton' }}
-                    color="inherit"
-                    onClick={handleOpenMenu}
-                >
-                    <Globe />
-                </IconButton>
-            </Tooltip>
+                <Globe />
+            </IconButton>
             <Menu
                 keepMounted
                 id="lang-selector"
@@ -58,15 +57,15 @@ function LanguagePicker() {
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
                 transformOrigin={{ vertical: 'top', horizontal: 'center' }}
             >
-                {currentLanguages.map(lang => (
+                {languageDetails.map(lang => (
                     <MenuItem
-                        key={lang.shorthand}
+                        key={lang.language_code}
                         classes={{ root: 'langSelectorItem' }}
-                        data-test={`languagePicker-option-${lang.shorthand}`}
-                        data-value={lang.path}
+                        data-test={`languagePicker-option-${lang.language_code}`}
+                        data-value={makePath(lang.language_code)}
                         onClick={() => handleLangChange(lang)}
                     >
-                        {lang.shorthand.toUpperCase()}
+                        {lang.language_name.toUpperCase()}
                     </MenuItem>
                 ))}
             </Menu>
