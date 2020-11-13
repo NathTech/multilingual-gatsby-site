@@ -8,3 +8,16 @@ fields:
     required: true
   label: Title
   description: The translated title of the page
+- name: language
+  type: select
+  default: []
+  config:
+    required: false
+    options: []
+    source:
+      type: pages
+      section: languages
+      file: 
+      path: 
+  label: Language
+  description: Choose the language that this page is in
