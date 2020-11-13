@@ -20,7 +20,7 @@ fields:
       section: languages
   label: Language
   description: Choose the language that this page is in
-- name: page
+- name: page_key
   type: select
   default: []
   config:
