@@ -15,7 +15,7 @@ fields:
     required: true
     source:
       type: documents
-      file: src/data/languages.yml
+      file: src/data/languages.json
       path: languages
       section: languages
   label: Language
