@@ -36,5 +36,6 @@ fields:
     left blank, this page will only be accessible via it's url, and won't be included
     in the menu
 pages:
+- src/pages/en/home.md
 - src/pages/home.md
 - src/pages/uz/ui.md
