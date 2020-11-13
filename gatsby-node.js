@@ -16,29 +16,6 @@ const {
 
 const makeLocalisedPath = (languageCode, pagePath) => (languageCode === defaultLanguage) ? `/${pagePath}` : `/${languageCode}/${pagePath}`
 
-exports.onCreatePage = async ({ page, actions: { createPage, deletePage } }) => {
-    // Delete the original page (since we are gonna create localized versions of it)
-    await deletePage(page)
-
-    // Create one page for each locale
-    await Promise.all(
-        languageDetails.map(async ({ language_code: languageCode }) => {
-            const originalPath = page.path
-            const localizedPath = makeLocalisedPath(languageCode, page.path)
-
-            await createPage({
-                ...page,
-                path: localizedPath,
-                context: {
-                    ...page.context,
-                    originalPath,
-                    lang: languageCode,
-                },
-            })
-        }),
-    )
-}
-
 exports.createPages = async ({ actions, graphql, reporter }) => {
     const { createPage } = actions
     const pageTemplate = require.resolve(`./src/templates/PageTemplate.js`)
