@@ -1,8 +1,12 @@
 {
-    "languages": [
-        {
-            "language_name": "English",
-            "language_code": "en"
-        }
-    ]
+  "languages": [
+    {
+      "language_name": "Кыргиз",
+      "language_code": "ky"
+    },
+    {
+      "language_name": "English",
+      "language_code": "en"
+    }
+  ]
 }
