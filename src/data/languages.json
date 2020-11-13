@@ -1,6 +1,10 @@
 {
   "languages": [
     {
+      "language_name": "Deutsch",
+      "language_code": "de"
+    },
+    {
       "language_name": "Узбек",
       "language_code": "uz"
     },
