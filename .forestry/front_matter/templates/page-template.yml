@@ -37,3 +37,4 @@ fields:
     in the menu
 pages:
 - src/pages/home.md
+- src/pages/uz/ui.md
