@@ -1,6 +1,10 @@
 {
   "menuStructure1": [
     {
+      "page_key": "supplement1",
+      "sub_page_of": "supplements"
+    },
+    {
       "page_key": "home",
       "sub_page_of": ""
     },
