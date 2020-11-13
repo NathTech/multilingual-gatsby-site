@@ -69,8 +69,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
             component: pageTemplate,
             context: {
                 // additional data can be passed via context
-                originalPath: node.frontmatter.slug,
-                lang: currentLanguage.language_code,
+                languageCode: currentLanguage.language_code,
                 pageKey: node.frontmatter.page_key,
             },
         })
