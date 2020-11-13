@@ -1,0 +1,20 @@
+{
+    "menuStructure1": [
+        {
+            "page_key": "home",
+            "sub_page_of": ""
+        },
+        {
+            "page_key": "supplements",
+            "sub_page_of": ""
+        },
+        {
+            "page_key": "supplement1",
+            "sub_page_of": "supplements"
+        },
+        {
+            "page_key": "supplement2",
+            "sub_page_of": "supplements"
+        }
+    ]
+}
