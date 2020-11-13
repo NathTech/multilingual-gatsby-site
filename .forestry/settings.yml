@@ -11,6 +11,8 @@ sections:
   label: Pages
   create: documents
   match: "**/*"
+  templates:
+  - page-template
 - type: document
   path: src/data/languages.json
   label: Languages
