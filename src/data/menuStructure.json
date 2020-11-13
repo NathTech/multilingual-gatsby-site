@@ -8,10 +8,12 @@
     "menuStructure": [
         {
             "page_key": "home",
+            "home_page": true,
             "submenu_page_keys": []
         },
         {
             "page_key": "supplements",
+            "home_page": false,
             "submenu_page_keys": [
                 "supplement2",
                 "supplement1"
