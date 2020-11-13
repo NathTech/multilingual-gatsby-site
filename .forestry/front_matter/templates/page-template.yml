@@ -44,6 +44,7 @@ fields:
     left blank, this page will only be accessible via it's url, and won't be included
     in the menu
 pages:
+- src/pages/de/erganzung-1.md
 - src/pages/de/haus.md
 - src/pages/en/home.md
 - src/pages/en/supplement-1.md
