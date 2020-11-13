@@ -16,7 +16,7 @@ Videos by using the code block to embed them
 
 And everything else that you might expect from a **WYSIWYG** _editor_
 
-> And everything else that you might expect from a **WYSIWYG** _editor_
+> This is the home page where all of you dreams come true.
 
 Like
 
