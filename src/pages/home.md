@@ -2,6 +2,7 @@
 language: en
 page: home
 title: Home
+page_key: home
 
 ---
 This is the home page where all of you dreams come true.
