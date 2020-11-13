@@ -14,8 +14,9 @@ fields:
   config:
     required: true
     source:
-      type: datafiles
-      file: languages.yml
-      path: src/data
+      type: documents
+      file: src/data/languages.yml
+      path: languages
+      section: languages
   label: Language
   description: Choose the language that this page is in
