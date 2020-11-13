@@ -8,6 +8,14 @@ fields:
     required: true
   label: Title
   description: The translated title of the page
+- name: slug
+  type: text
+  config:
+    required: true
+  label: slug
+  description: This is the name of the page that will show up in the url.<br><br>It
+    makes sense to use the same words as in the title but no special characters like
+    /*&amp;:+ etc. and use a hyphen "-" instead of spaces.
 - name: language
   type: select
   default: en

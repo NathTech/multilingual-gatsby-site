@@ -2,6 +2,7 @@
 language: de
 page_key: home
 title: Haus
+slug: haus
 
 ---
 Das ist mein Haus.
