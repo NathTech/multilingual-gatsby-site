@@ -5,6 +5,7 @@
     "ky",
     "de"
   ],
+  "default_language": "en",
   "languageDetails": [
     {
       "language_name": "Deutsch",

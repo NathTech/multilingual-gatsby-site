@@ -60,6 +60,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         const currentLanguage = currentLanguages.find(
             language => node.frontmatter.key === language.shorthand,
         )
+        if (!currentLanguage) return
         createPage({
             path: `${currentLanguage.path}${node.frontmatter.slug}`,
             component: projectTemplate,
