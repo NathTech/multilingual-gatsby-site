@@ -58,9 +58,9 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         )
         const currentMenuItem = node.frontmatter.page_key
 
-        const isIndexPage = menuStructure
-            .find(({ page_key: pageKey }) => currentMenuItem === pageKey)
-            .home_page
+        const menuItem = menuStructure.find(({ page_key: pageKey }) => currentMenuItem === pageKey)
+
+        const isIndexPage = menuItem ? menuItem.home_page : false
 
         if (!currentLanguage) return
 
