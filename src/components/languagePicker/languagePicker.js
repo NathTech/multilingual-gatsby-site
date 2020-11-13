@@ -3,7 +3,7 @@ import { navigate } from 'gatsby'
 import { useTranslation } from 'react-i18next'
 import { Menu, MenuItem, IconButton } from '@material-ui/core/'
 
-import { languageDetails, default_language as defaultLanguage } from '../../data/languages.json'
+import { language_details as languageDetails, default_language as defaultLanguage } from '../../data/languages.json'
 import { usePageContext } from '../pageContext'
 
 import Globe from '../../assets/svg/navIcons/globe.svg'

@@ -9,7 +9,12 @@
  * For example, pages/404.js will be converted to /en/404.js and /el/404.js and
  * it will be accessible from https:// .../en/404/ and https:// .../el/404/
  */
-const { currentLanguages } = require('./src/i18n/config/currentLanguages')
+const {
+    language_details: languageDetails,
+    default_language: defaultLanguage,
+} = require('./src/data/languages.json')
+
+const makeLocalisedPath = (languageCode, pagePath) => (languageCode === defaultLanguage) ? `/${pagePath}` : `/${languageCode}/${pagePath}`
 
 exports.onCreatePage = async ({ page, actions: { createPage, deletePage } }) => {
     // Delete the original page (since we are gonna create localized versions of it)
@@ -17,9 +22,9 @@ exports.onCreatePage = async ({ page, actions: { createPage, deletePage } }) => 
 
     // Create one page for each locale
     await Promise.all(
-        currentLanguages.map(async lang => {
+        languageDetails.map(async ({ language_code: languageCode }) => {
             const originalPath = page.path
-            const localizedPath = `${lang.path}${page.path}`
+            const localizedPath = makeLocalisedPath(languageCode, page.path)
 
             await createPage({
                 ...page,
@@ -27,7 +32,7 @@ exports.onCreatePage = async ({ page, actions: { createPage, deletePage } }) => 
                 context: {
                     ...page.context,
                     originalPath,
-                    lang: lang.shorthand,
+                    lang: languageCode,
                 },
             })
         }),
@@ -36,15 +41,17 @@ exports.onCreatePage = async ({ page, actions: { createPage, deletePage } }) => 
 
 exports.createPages = async ({ actions, graphql, reporter }) => {
     const { createPage } = actions
-    const projectTemplate = require.resolve(`./src/templates/project.js`)
+    const pageTemplate = require.resolve(`./src/templates/PageTemplate.js`)
     const result = await graphql(`
         {
-            allMarkdownRemark(sort: { order: DESC, fields: [frontmatter___date] }, limit: 1000) {
+            allMarkdownRemark {
                 edges {
                     node {
                         frontmatter {
+                            title
+                            language
+                            page_key
                             slug
-                            key
                         }
                     }
                 }
@@ -57,17 +64,18 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         return
     }
     result.data.allMarkdownRemark.edges.forEach(({ node }) => {
-        const currentLanguage = currentLanguages.find(
-            language => node.frontmatter.key === language.shorthand,
+        const currentLanguage = languageDetails.find(
+            ({ language_code: languageCode }) => node.frontmatter.language === languageCode,
         )
         if (!currentLanguage) return
         createPage({
-            path: `${currentLanguage.path}${node.frontmatter.slug}`,
-            component: projectTemplate,
+            path: makeLocalisedPath(currentLanguage.language_code, node.frontmatter.slug),
+            component: pageTemplate,
             context: {
                 // additional data can be passed via context
                 originalPath: node.frontmatter.slug,
-                lang: currentLanguage.shorthand,
+                lang: currentLanguage.language_code,
+                pageKey: node.frontmatter.page_key,
             },
         })
     })

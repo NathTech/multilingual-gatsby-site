@@ -26,7 +26,7 @@ function PageTemplate({ data }) {
 
 export const pageQuery = graphql`
     query($originalPath: String!, $lang: String!) {
-        markdownRemark(frontmatter: { slug: { eq: $originalPath }, key: { eq: $lang } }) {
+        markdownRemark(frontmatter: { slug: { eq: $originalPath }, language: { eq: $lang } }) {
             html
             frontmatter {
                 title
