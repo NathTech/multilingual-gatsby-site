@@ -14,7 +14,19 @@ const {
     default_language: defaultLanguage,
 } = require('./src/data/languages.json')
 
-const makeLocalisedPath = (languageCode, pagePath) => (languageCode === defaultLanguage) ? `/${pagePath}` : `/${languageCode}/${pagePath}`
+const {
+    menu_structure: menuStructure,
+} = require('./src/data/menuStructure.json')
+
+const makeLocalisedPath = (languageCode, pagePath, isIndexPage) => {
+    const isDefaultLanguage = languageCode === defaultLanguage
+
+    if (isIndexPage) {
+        return isDefaultLanguage ? '/' : `/${languageCode}`
+    }
+
+    return isDefaultLanguage ? `/${pagePath}` : `/${languageCode}/${pagePath}`
+}
 
 exports.createPages = async ({ actions, graphql, reporter }) => {
     const { createPage } = actions
@@ -44,9 +56,16 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         const currentLanguage = languageDetails.find(
             ({ language_code: languageCode }) => node.frontmatter.language === languageCode,
         )
+        const currentMenuItem = node.frontmatter.page_key
+
+        const isIndexPage = menuStructure
+            .find(({ page_key: pageKey }) => currentMenuItem === pageKey)
+            .home_page
+
         if (!currentLanguage) return
+
         createPage({
-            path: makeLocalisedPath(currentLanguage.language_code, node.frontmatter.slug),
+            path: makeLocalisedPath(currentLanguage.language_code, node.frontmatter.slug, isIndexPage),
             component: pageTemplate,
             context: {
                 // additional data can be passed via context

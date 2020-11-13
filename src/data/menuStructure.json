@@ -5,7 +5,7 @@
         "supplement1",
         "supplement2"
     ],
-    "menuStructure": [
+    "menu_structure": [
         {
             "page_key": "home",
             "home_page": true,
