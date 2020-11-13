@@ -10,14 +10,12 @@ fields:
   description: The translated title of the page
 - name: language
   type: select
-  default: []
+  default: en
   config:
-    required: false
-    options: []
+    required: true
     source:
-      type: pages
-      section: languages
-      file: 
-      path: 
+      type: datafiles
+      file: languages.yml
+      path: src/data
   label: Language
   description: Choose the language that this page is in
