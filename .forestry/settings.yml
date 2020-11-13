@@ -12,7 +12,7 @@ sections:
   create: documents
   match: "**/*"
 - type: document
-  path: src/data/languages.json
+  path: src/data/languages.yml
   label: Languages
 - type: document
   path: src/data/menuStructure.json
