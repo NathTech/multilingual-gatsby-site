@@ -35,3 +35,5 @@ fields:
   description: Choose the page that this links to in the menu structure.<br><br>If
     left blank, this page will only be accessible via it's url, and won't be included
     in the menu
+pages:
+- src/pages/home.md
