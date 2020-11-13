@@ -1,17 +1,21 @@
 {
-  "menuStructure": [
-    {
-      "page_key": "home",
-      "submenu_page_keys": [
-
-      ]
-    },
-    {
-      "page_key": "supplements",
-      "submenu_page_keys": [
-        "supplement2",
-        "supplement1"
-      ]
-    }
-  ]
+    "pages": [
+        "home",
+        "supplements",
+        "supplement1",
+        "supplement2"
+    ],
+    "menuStructure": [
+        {
+            "page_key": "home",
+            "submenu_page_keys": []
+        },
+        {
+            "page_key": "supplements",
+            "submenu_page_keys": [
+                "supplement2",
+                "supplement1"
+            ]
+        }
+    ]
 }
