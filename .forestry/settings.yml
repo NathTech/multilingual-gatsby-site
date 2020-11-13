@@ -17,11 +17,9 @@ sections:
 - type: document
   path: src/data/menuStructure.json
   label: Menu1
-  match: "**/*"
 - type: document
   path: src/data/menuStructure2.json
   label: Menu2
-  match: "**/*"
 upload_dir: uploads
 public_path: "/src/assets/images"
 front_matter_path: ''
