@@ -41,12 +41,12 @@ const makeLanguageMenuDictionary = (nodes) => {
                 : item.submenu_page_keys.map((key) => ({
                     pageKey: key,
                     homePage: false,
-                    slug: ''
+                    // slug: ''
                 }))
             return ({
                 pageKey: item.page_key,
                 homePage: item.home_page,
-                slug: '',
+                // slug: '',
                 subMenu,
             })
         })
@@ -57,58 +57,72 @@ const makeLanguageMenuDictionary = (nodes) => {
         dictionarySkeleton[pageKey] = ''
     })
 
-    const menus = {}
-    const pageDictionary = {}
+    const menus = makeMenuSkeleton()
+    const pageSlugDictionary = {}
+    const pageTitleDictionary = {}
     languages.forEach((languageCode) => {
-        menus[languageCode] = makeMenuSkeleton()
-        pageDictionary[languageCode] = { ...dictionarySkeleton }
+        //        menus[languageCode] = makeMenuSkeleton()
+        pageSlugDictionary[languageCode] = { ...dictionarySkeleton }
+        pageTitleDictionary[languageCode] = { ...dictionarySkeleton }
     })
 
     const addSlugToDictionary = (language, pageKey, slug) => {
         if (!languages.includes(language)) return
         if (typeof slug !== 'string') return
         if (typeof pageKey !== 'string') return
-        pageDictionary[language][pageKey] = slug
+        pageSlugDictionary[language][pageKey] = slug
     }
 
-    nodes.forEach(({ node: { frontmatter: { slug, page_key: pageKey, language } } }) => {
-        addSlugToDictionary(language, pageKey, slug, pageDictionary)
+    const addTitleToDictionary = (language, pageKey, slug) => {
+        if (!languages.includes(language)) return
+        if (typeof slug !== 'string') return
+        if (typeof pageKey !== 'string') return
+        pageTitleDictionary[language][pageKey] = slug
+    }
+
+    nodes.forEach(({ node: { frontmatter: { slug, title, page_key: pageKey, language } } }) => {
+        addSlugToDictionary(language, pageKey, slug)
+        addTitleToDictionary(language, pageKey, title)
     })
 
-    const getPageSlug = (language, pageKey) => {
-        if (!Object.keys(pageDictionary).includes(language)) return ''
-        if (!Object.keys(pageDictionary[language]).includes(pageKey)) return ''
-
-        return pageDictionary[language][pageKey]
-    }
-
-    const addSlugToMenu = (language, slug, firstLevelIndex, secondLevelIndex = -1) => {
-        const firstLevel = menus[language][firstLevelIndex]
-        if (secondLevelIndex > -1) {
-            if (firstLevel.subMenu && firstLevel.subMenu.length > 0) {
-                firstLevel.subMenu[secondLevelIndex].slug = slug
-            }
-            return
+    /*     const getPageInfo = (language, pageKey) => {
+            if (!Object.keys(pageSlugDictionary).includes(language)) return ''
+            if (!Object.keys(pageSlugDictionary[language]).includes(pageKey)) return ''
+    
+            return pageSlugDictionary[language][pageKey]
         }
-        firstLevel.slug = slug
-    }
-
-    Object.keys(menus).forEach((languageCode) => {
-        const menu = menus[languageCode]
-        menu.forEach((item, i) => {
-            const pageSlug = getPageSlug(languageCode, item.pageKey)
-            addSlugToMenu(languageCode, pageSlug, i)
-
-            if (item.subMenu && item.subMenu.length > 0) {
-                item.subMenu.forEach((subItem, j) => {
-                    const subPageSlug = getPageSlug(languageCode, subItem.pageKey)
-                    addSlugToMenu(languageCode, subPageSlug, i, j)
-                })
+    
+        const addInfoToMenu = (language, pageInfo, firstLevelIndex, secondLevelIndex = -1) => {
+            const { slug, title } = pageInfo
+            const firstLevel = menus[language][firstLevelIndex]
+            if (secondLevelIndex > -1) {
+                if (firstLevel.subMenu && firstLevel.subMenu.length > 0) {
+                    firstLevel.subMenu[secondLevelIndex].slug = slug
+                    firstLevel.subMenu[secondLevelIndex].title = title
+                }
+                return
             }
-        })
-    })
+            firstLevel.slug = slug
+            firstLevel.title = title
+        }
+    
+        Object.keys(menus).forEach((languageCode) => {
+            const menu = menus[languageCode]
+            menu.forEach((item, i) => {
+                const pagInfo = getPageInfo(languageCode, item.pageKey)
+                addInfoToMenu(languageCode, pagInfo, i)
+    
+                if (item.subMenu && item.subMenu.length > 0) {
+                    item.subMenu.forEach((subItem, j) => {
+                        const subPagInfo = getPageInfo(languageCode, subItem.pageKey)
+                        addInfoToMenu(languageCode, subPagInfo, i, j)
+                    })
+                }
+            })
+        }) */
 
-    return [menus, pageDictionary]
+
+    return [menus, pageSlugDictionary, pageTitleDictionary]
 }
 
 exports.createPages = async ({ actions, graphql, reporter }) => {
@@ -135,20 +149,18 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         reporter.panicOnBuild(`Error while running GraphQL query.`)
         return
     }
-    const [languageMenuStructures, pageKeyDictionary] = makeLanguageMenuDictionary(result.data.allMarkdownRemark.edges)
+    const [siteStructure, pageSlugDictionary, pageTitleDictionary] = makeLanguageMenuDictionary(result.data.allMarkdownRemark.edges)
     result.data.allMarkdownRemark.edges.forEach(({ node }) => {
         const currentLanguage = languageDetails.find(
             ({ language_code: languageCode }) => node.frontmatter.language === languageCode,
         )
         const currentMenuItem = node.frontmatter.page_key
 
-        const menuItem = menuStructure.find(({ page_key: pageKey }) => currentMenuItem === pageKey)
+        const menuItem = siteStructure.find(({ page_key: pageKey }) => currentMenuItem === pageKey)
 
         const isIndexPage = menuItem ? menuItem.home_page : false
 
         if (!currentLanguage) return
-
-        const languageMenuStructure = languageMenuStructures[currentLanguage.language_code]
 
         createPage({
             path: makeLocalisedPath(currentLanguage.language_code, node.frontmatter.slug, isIndexPage),
@@ -157,8 +169,9 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
                 // additional data can be passed via context
                 languageCode: currentLanguage.language_code,
                 pageKey: node.frontmatter.page_key,
-                menuStructure: languageMenuStructure,
-                pageKeyDictionary,
+                menuStructure: siteStructure,
+                pageSlugDictionary,
+                pageTitleDictionary,
             },
         })
     })
