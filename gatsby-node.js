@@ -11,7 +11,6 @@
  */
 const {
     language_details: languageDetails,
-    default_language: defaultLanguage,
     languages,
 } = require('./src/data/languages.json')
 
@@ -19,16 +18,7 @@ const {
     menu_structure: menuStructure,
     pages,
 } = require('./src/data/menuStructure.json')
-
-const makeLocalisedPath = (languageCode, pagePath, isIndexPage) => {
-    const isDefaultLanguage = languageCode === defaultLanguage
-
-    if (isIndexPage) {
-        return isDefaultLanguage ? '/' : `/${languageCode}`
-    }
-
-    return isDefaultLanguage ? `/${pagePath}` : `/${languageCode}/${pagePath}`
-}
+const { makeLocalisedPath } = require('./src/utils/paths')
 
 /**
  * Create a dictionary of page_keys and slugs for the menu structure for each language
@@ -45,7 +35,7 @@ const makeLanguageMenuDictionary = (nodes) => {
                 }))
             return ({
                 pageKey: item.page_key,
-                homePage: item.home_page,
+                homePage: item.home_page ? true : false,
                 // slug: '',
                 subMenu,
             })
@@ -61,7 +51,6 @@ const makeLanguageMenuDictionary = (nodes) => {
     const pageSlugDictionary = {}
     const pageTitleDictionary = {}
     languages.forEach((languageCode) => {
-        //        menus[languageCode] = makeMenuSkeleton()
         pageSlugDictionary[languageCode] = { ...dictionarySkeleton }
         pageTitleDictionary[languageCode] = { ...dictionarySkeleton }
     })
@@ -84,43 +73,6 @@ const makeLanguageMenuDictionary = (nodes) => {
         addSlugToDictionary(language, pageKey, slug)
         addTitleToDictionary(language, pageKey, title)
     })
-
-    /*     const getPageInfo = (language, pageKey) => {
-            if (!Object.keys(pageSlugDictionary).includes(language)) return ''
-            if (!Object.keys(pageSlugDictionary[language]).includes(pageKey)) return ''
-    
-            return pageSlugDictionary[language][pageKey]
-        }
-    
-        const addInfoToMenu = (language, pageInfo, firstLevelIndex, secondLevelIndex = -1) => {
-            const { slug, title } = pageInfo
-            const firstLevel = menus[language][firstLevelIndex]
-            if (secondLevelIndex > -1) {
-                if (firstLevel.subMenu && firstLevel.subMenu.length > 0) {
-                    firstLevel.subMenu[secondLevelIndex].slug = slug
-                    firstLevel.subMenu[secondLevelIndex].title = title
-                }
-                return
-            }
-            firstLevel.slug = slug
-            firstLevel.title = title
-        }
-    
-        Object.keys(menus).forEach((languageCode) => {
-            const menu = menus[languageCode]
-            menu.forEach((item, i) => {
-                const pagInfo = getPageInfo(languageCode, item.pageKey)
-                addInfoToMenu(languageCode, pagInfo, i)
-    
-                if (item.subMenu && item.subMenu.length > 0) {
-                    item.subMenu.forEach((subItem, j) => {
-                        const subPagInfo = getPageInfo(languageCode, subItem.pageKey)
-                        addInfoToMenu(languageCode, subPagInfo, i, j)
-                    })
-                }
-            })
-        }) */
-
 
     return [menus, pageSlugDictionary, pageTitleDictionary]
 }
@@ -154,16 +106,11 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         const currentLanguage = languageDetails.find(
             ({ language_code: languageCode }) => node.frontmatter.language === languageCode,
         )
-        const currentMenuItem = node.frontmatter.page_key
-
-        const menuItem = siteStructure.find(({ page_key: pageKey }) => currentMenuItem === pageKey)
-
-        const isIndexPage = menuItem ? menuItem.home_page : false
 
         if (!currentLanguage) return
 
         createPage({
-            path: makeLocalisedPath(currentLanguage.language_code, node.frontmatter.slug, isIndexPage),
+            path: makeLocalisedPath(currentLanguage.language_code, node.frontmatter.slug, node.frontmatter.page_key),
             component: pageTemplate,
             context: {
                 // additional data can be passed via context

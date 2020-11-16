@@ -1,14 +1,18 @@
 import React, { useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { IconButton, SwipeableDrawer, Tooltip } from '@material-ui/core'
-
-import Link from '../link'
-import NavLinks from '../../utils/navLinks'
+import { Link } from 'gatsby'
 
 import Menu from '../../assets/svg/navIcons/menu.svg'
+import { usePageContext } from '../pageContext'
+import { makeLocalisedPath } from '../../utils/paths'
 
 const Drawer = () => {
-    const { t } = useTranslation()
+    const {
+        menuStructure,
+        languageCode,
+        pageSlugDictionary,
+        pageTitleDictionary,
+    } = usePageContext()
     const [openDrawer, setDrawerOpen] = useState(false)
     const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent)
 
@@ -19,6 +23,13 @@ const Drawer = () => {
         setDrawerOpen(open)
     }
 
+    console.log(menuStructure);
+
+    // if a first level menu item has no translated page then it won't have a translated slug.
+    // therefore you won't be able to show it in the page structure.
+
+    // if a submenu item has no slug, then just don't show that item
+
     const mobileNavContents = (
         <div
             role="presentation"
@@ -26,11 +37,22 @@ const Drawer = () => {
             onClick={toggleDrawer(false)}
             onKeyDown={toggleDrawer(false)}
         >
-            {NavLinks.map(navLink => (
-                <Link to={navLink.path} key={navLink.id} className="navLink">
-                    {t(`${navLink.id}:title`)}
-                </Link>
-            ))}
+            {menuStructure
+                .filter(({ pageKey }) => Object.keys(pageSlugDictionary[languageCode]).includes(pageKey))
+                .filter(({ pageKey }) => pageSlugDictionary[languageCode][pageKey] !== '')
+                .map(({ pageKey, subMenu }) => {
+
+                    const slug = pageSlugDictionary[languageCode][pageKey]
+                    const title = pageTitleDictionary[languageCode][pageKey]
+
+                    const path = makeLocalisedPath(languageCode, slug, pageKey)
+
+                    return (
+                        <Link to={path} key={pageKey} className="navLink">
+                            {title}
+                        </Link>
+                    )
+                })}
         </div>
     )
 

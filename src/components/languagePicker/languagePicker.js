@@ -5,13 +5,12 @@ import { Menu, MenuItem, IconButton } from '@material-ui/core/'
 
 import {
     language_details as languageDetails,
-    default_language as defaultLanguage,
     languages,
 } from '../../data/languages.json'
-import { menu_structure as menuStructure } from '../../data/menuStructure.json'
 import { usePageContext } from '../pageContext'
 
 import Globe from '../../assets/svg/navIcons/globe.svg'
+import { makeLanguagePath, makeLocalisedPath } from '../../utils/paths'
 
 function LanguagePicker() {
     const {
@@ -21,30 +20,6 @@ function LanguagePicker() {
     const { i18n } = useTranslation()
 
     const [anchorEl, setAnchorEl] = React.useState(null)
-
-    const makeLanguagePath = (languageCode) => {
-        return languageCode === defaultLanguage ? '/' : `/${languageCode}`
-    }
-
-    const isHomePage = () => {
-        const menuItem = menuStructure.find((firstLevelItem) => {
-            if (firstLevelItem.page_key === pageKey) {
-                return true
-            }
-            return false
-        })
-        return menuItem ? menuItem.home_page : false
-    }
-
-    const makeLocalisedPath = (languageCode) => {
-        const languagePath = makeLanguagePath(languageCode)
-        if (isHomePage()) return languagePath
-
-        const newSlug = pageSlugDictionary[languageCode][pageKey]
-
-        const isDefaultLanguage = languageCode === defaultLanguage
-        return isDefaultLanguage ? `/${newSlug}` : `/${languageCode}/${newSlug}`
-    }
 
     const handleOpenMenu = event => {
         setAnchorEl(event.currentTarget)
@@ -57,7 +32,9 @@ function LanguagePicker() {
     const handleLangChange = ({ language_code: languageCode }) => {
         handleCloseMenu()
         i18n.changeLanguage(languageCode)
-        const path = makeLocalisedPath(languageCode)
+        const newSlug = pageSlugDictionary[languageCode][pageKey]
+
+        const path = makeLocalisedPath(languageCode, newSlug, pageKey)
         navigate(path)
     }
 
