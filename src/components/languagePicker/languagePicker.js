@@ -16,7 +16,7 @@ import Globe from '../../assets/svg/navIcons/globe.svg'
 function LanguagePicker() {
     const {
         pageKey,
-        pageKeyDictionary,
+        pageSlugDictionary,
     } = usePageContext()
     const { i18n } = useTranslation()
 
@@ -40,7 +40,7 @@ function LanguagePicker() {
         const languagePath = makeLanguagePath(languageCode)
         if (isHomePage()) return languagePath
 
-        const newSlug = pageKeyDictionary[languageCode][pageKey]
+        const newSlug = pageSlugDictionary[languageCode][pageKey]
 
         const isDefaultLanguage = languageCode === defaultLanguage
         return isDefaultLanguage ? `/${newSlug}` : `/${languageCode}/${newSlug}`
