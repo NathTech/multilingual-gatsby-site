@@ -1,16 +1,16 @@
 {
   "languages": [
-    "non",
     "en",
     "uz",
     "ky",
-    "de"
+    "de",
+    "non"
   ],
   "default_language": "en",
   "language_details": [
     {
-      "language_name": "Not in language list",
-      "language_code": "not"
+      "language_name": "English",
+      "language_code": "en"
     },
     {
       "language_name": "Deutsch",
@@ -25,8 +25,8 @@
       "language_code": "ky"
     },
     {
-      "language_name": "English",
-      "language_code": "en"
+      "language_name": "Not in language list",
+      "language_code": "not"
     }
   ]
 }
