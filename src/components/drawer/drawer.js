@@ -23,12 +23,31 @@ const Drawer = () => {
         setDrawerOpen(open)
     }
 
-    console.log(menuStructure);
+    const createMenu = (menu) => menu
+        .filter(({ pageKey }) => Object.keys(pageSlugDictionary[languageCode]).includes(pageKey))
+        .filter(({ pageKey }) => pageSlugDictionary[languageCode][pageKey] !== '')
+        .map(({ pageKey, subMenu }) => {
 
-    // if a first level menu item has no translated page then it won't have a translated slug.
-    // therefore you won't be able to show it in the page structure.
+            const slug = pageSlugDictionary[languageCode][pageKey]
+            const title = pageTitleDictionary[languageCode][pageKey]
+            const path = makeLocalisedPath(languageCode, slug, pageKey)
 
-    // if a submenu item has no slug, then just don't show that item
+            const subMenuLinks = subMenu && createMenu(subMenu)
+            const isSubMenuItem = typeof subMenu === 'undefined'
+
+            return (
+                <>
+                    <Link to={path} key={pageKey} className="navLink" data-submenu-item={isSubMenuItem} style={{ color: isSubMenuItem ? 'green' : 'inherit' }}>
+                        {title}
+                    </Link>
+                    {subMenuLinks && (
+                        <div className="navSubMenu">
+                            {subMenuLinks}
+                        </div>
+                    )}
+                </>
+            )
+        })
 
     const mobileNavContents = (
         <div
@@ -37,22 +56,7 @@ const Drawer = () => {
             onClick={toggleDrawer(false)}
             onKeyDown={toggleDrawer(false)}
         >
-            {menuStructure
-                .filter(({ pageKey }) => Object.keys(pageSlugDictionary[languageCode]).includes(pageKey))
-                .filter(({ pageKey }) => pageSlugDictionary[languageCode][pageKey] !== '')
-                .map(({ pageKey, subMenu }) => {
-
-                    const slug = pageSlugDictionary[languageCode][pageKey]
-                    const title = pageTitleDictionary[languageCode][pageKey]
-
-                    const path = makeLocalisedPath(languageCode, slug, pageKey)
-
-                    return (
-                        <Link to={path} key={pageKey} className="navLink">
-                            {title}
-                        </Link>
-                    )
-                })}
+            {createMenu(menuStructure)}
         </div>
     )
 
