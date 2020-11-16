@@ -18,8 +18,9 @@
       "page_key": "supplements",
       "home_page": false,
       "submenu_page_keys": [
+        "supplement1",
         "supplement2",
-        "supplement1"
+        "supplement-null"
       ]
     },
     {
