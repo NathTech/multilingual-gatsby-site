@@ -1,23 +1,31 @@
 {
-    "pages": [
-        "home",
-        "supplements",
-        "supplement1",
-        "supplement2"
-    ],
-    "menu_structure": [
-        {
-            "page_key": "home",
-            "home_page": true,
-            "submenu_page_keys": []
-        },
-        {
-            "page_key": "supplements",
-            "home_page": false,
-            "submenu_page_keys": [
-                "supplement2",
-                "supplement1"
-            ]
-        }
-    ]
+  "pages": [
+    "home",
+    "supplements",
+    "supplement1",
+    "supplement2",
+    "invisible-page"
+  ],
+  "menu_structure": [
+    {
+      "page_key": "home",
+      "home_page": true,
+      "submenu_page_keys": [
+
+      ]
+    },
+    {
+      "page_key": "supplements",
+      "home_page": false,
+      "submenu_page_keys": [
+        "supplement2",
+        "supplement1"
+      ]
+    },
+    {
+      "page_key": "not-in-pages-list",
+      "home_page": "",
+      "submenu_page_keys": ""
+    }
+  ]
 }
