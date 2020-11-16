@@ -5,7 +5,8 @@ import { Menu, MenuItem, IconButton } from '@material-ui/core/'
 
 import {
     language_details as languageDetails,
-    default_language as defaultLanguage
+    default_language as defaultLanguage,
+    languages,
 } from '../../data/languages.json'
 import { menu_structure as menuStructure } from '../../data/menuStructure.json'
 import { usePageContext } from '../pageContext'
@@ -84,17 +85,19 @@ function LanguagePicker() {
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
                 transformOrigin={{ vertical: 'top', horizontal: 'center' }}
             >
-                {languageDetails.map(lang => (
-                    <MenuItem
-                        key={lang.language_code}
-                        classes={{ root: 'langSelectorItem' }}
-                        data-test={`languagePicker-option-${lang.language_code}`}
-                        data-value={makeLanguagePath(lang.language_code)}
-                        onClick={() => handleLangChange(lang)}
-                    >
-                        {lang.language_name.toUpperCase()}
-                    </MenuItem>
-                ))}
+                {languageDetails
+                    .filter((lang) => languages.includes(lang.language_code))
+                    .map(lang => (
+                        <MenuItem
+                            key={lang.language_code}
+                            classes={{ root: 'langSelectorItem' }}
+                            data-test={`languagePicker-option-${lang.language_code}`}
+                            data-value={makeLanguagePath(lang.language_code)}
+                            onClick={() => handleLangChange(lang)}
+                        >
+                            {lang.language_name.toUpperCase()}
+                        </MenuItem>
+                    ))}
             </Menu>
         </>
     )
