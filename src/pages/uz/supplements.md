@@ -1,10 +1,10 @@
 ---
-language: en
+language: uz
 page_key: supplements
-title: Supplements
-slug: supplements
+title: Qo'shimchalar
+slug: qoshimchalar
 
 ---
-# Supplements
+# Qo'shimchalar
 
-* Supplement 1
+* [qo'shimcha 1](/uz/qoshimcha1)
