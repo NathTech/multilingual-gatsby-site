@@ -25,8 +25,8 @@ function PageTemplate({ data }) {
 }
 
 export const pageQuery = graphql`
-    query($originalPath: String!, $lang: String!) {
-        markdownRemark(frontmatter: { slug: { eq: $originalPath }, language: { eq: $lang } }) {
+    query($pageKey: String!, $languageCode: String!) {
+        markdownRemark(frontmatter: { page_key: { eq: $pageKey }, language: { eq: $languageCode } }) {
             html
             frontmatter {
                 title
@@ -42,7 +42,6 @@ PageTemplate.propTypes = {
         markdownRemark: PropTypes.shape({
             frontmatter: PropTypes.shape({
                 title: PropTypes.string,
-                date: PropTypes.string,
             }),
             html: PropTypes.string,
         }),
