@@ -9,7 +9,7 @@ Das ist mein Haus.
 
 Und mein Freundlich Hund.
 
-![](/src/assets/images/mountain-peak.jpg)
+![](/uploads/mountain-peak.jpg)
 
 Und deise Katze ist kitsch
 
