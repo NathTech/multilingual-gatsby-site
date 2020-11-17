@@ -2,11 +2,13 @@ $themes: (
     light: (
         backgroundColor: $lightBackground,
         linkColor: $lightLink,
+        otherLinkColor: $otherLightLink,
         linkFocus: $lightFocus,
     ),
     dark: (
         backgroundColor: $darkBackground,
         linkColor: $darkLink,
+        otherLinkColor: $otherDarkLink,
         linkFocus: $darkFocus,
     ),
 );

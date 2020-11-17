@@ -34,18 +34,19 @@ const Drawer = () => {
 
             const subMenuLinks = subMenu && createMenu(subMenu)
             const isSubMenuItem = typeof subMenu === 'undefined'
+            const hasSubMenu = subMenuLinks && subMenuLinks.length > 0
 
             return (
-                <>
-                    <Link to={path} key={pageKey} className="navLink" data-submenu-item={isSubMenuItem} style={{ color: isSubMenuItem ? 'green' : 'inherit' }}>
+                <div className="navItem" key={`${pageKey}wrap`}>
+                    <Link to={path} key={pageKey} className="navLink" data-submenu-item={isSubMenuItem} data-submenu-parent={hasSubMenu}>
                         {title}
                     </Link>
-                    {subMenuLinks && (
-                        <div className="navSubMenu">
+                    {hasSubMenu && (
+                        <div className="navSubMenu" key={`${pageKey}submenu`}>
                             {subMenuLinks}
                         </div>
                     )}
-                </>
+                </div>
             )
         })
 
