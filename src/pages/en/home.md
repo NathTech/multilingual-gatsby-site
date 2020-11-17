@@ -11,6 +11,8 @@ You can add images...
 
 ![](uploads/mountain-peak.jpg)
 
+![](uploads/mountain-peak.jpg)
+
 Videos by using the code block to embed them
 
     <iframe width="560" height="315" src="https://www.youtube.com/embed/ypJDXayM5FM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
