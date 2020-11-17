@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { IconButton, SwipeableDrawer, Tooltip } from '@material-ui/core'
+import { IconButton, SwipeableDrawer } from '@material-ui/core'
 import { Link } from 'gatsby'
 
 import Menu from '../../assets/svg/navIcons/menu.svg'
@@ -63,21 +63,15 @@ const Drawer = () => {
 
     return (
         <>
-            <Tooltip
-                title="Menu"
-                aria-label="Menu"
-                classes={{ popper: 'navPopper', tooltip: 'navTooltip' }}
+            <IconButton
+                aria-label="menu"
+                classes={{ root: 'navIconButton' }}
+                color="inherit"
+                onClick={toggleDrawer(true)}
+                data-test="drawer-button"
             >
-                <IconButton
-                    aria-label="menu"
-                    classes={{ root: 'navIconButton' }}
-                    color="inherit"
-                    onClick={toggleDrawer(true)}
-                    data-test="drawer-button"
-                >
-                    <Menu />
-                </IconButton>
-            </Tooltip>
+                <Menu />
+            </IconButton>
             <SwipeableDrawer
                 open={openDrawer}
                 classes={{ paper: 'drawer' }}
