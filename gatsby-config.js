@@ -13,13 +13,20 @@ module.exports = {
                 path: `${__dirname}/src/`,
             },
         },
+        {
+            resolve: `gatsby-source-filesystem`,
+            options: {
+                name: `uploads`,
+                path: `${__dirname}/uploads`,
+            }
+        },
         `gatsby-transformer-sharp`,
         `gatsby-plugin-sharp`,
         {
             resolve: 'gatsby-transformer-remark',
             options: {
                 plugins: [
-                    // 'gatsby-remark-autolink-headers',
+                    `gatsby-remark-normalize-paths`,
                     {
                         resolve: `gatsby-remark-images`,
                         options: {
