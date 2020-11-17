@@ -1,5 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+// import { Image } from '@material-ui/icons'
 
 import Layout from '../components/layout'
 import SEO from '../components/seo'
@@ -11,8 +12,7 @@ function NotFoundPage() {
     return (
         <Layout>
             <SEO title={t('title')} />
-            <h1>{t('header')}</h1>
-            <p>{t('message')}</p>
+            <img src="/src/assets/images/404.jpg" alt="" />
             <Link to="/">{t('link')}</Link>
         </Layout>
     )

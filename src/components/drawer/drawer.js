@@ -50,6 +50,8 @@ const Drawer = () => {
             )
         })
 
+    const menuList = createMenu(menuStructure)
+
     const mobileNavContents = (
         <div
             role="presentation"
@@ -57,7 +59,7 @@ const Drawer = () => {
             onClick={toggleDrawer(false)}
             onKeyDown={toggleDrawer(false)}
         >
-            {createMenu(menuStructure)}
+            {menuList}
         </div>
     )
 
