@@ -1,8 +1,9 @@
 const { default_language: defaultLanguage } = require('../data/languages.json')
 const { menu_structure: menuStructure } = require('../data/menuStructure.json')
 
-const makeLanguagePath = (languageCode) => {
-    return languageCode === defaultLanguage ? '/' : `/${languageCode}`
+const makeLanguagePath = (languageCode, noSlash = false) => {
+    const slash = noSlash ? '' : '/'
+    return languageCode === defaultLanguage ? slash : `/${languageCode}`
 }
 
 const isHomePage = (pageKey) => {

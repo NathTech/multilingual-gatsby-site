@@ -154,7 +154,19 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 
         languages.forEach((language) => {
             createPage({
-                path: `${makeLanguagePath(language)}/${pageName}`,
+                path: `${makeLanguagePath(language, true)}/${pageName}`,
+                component: pageTemplates[pageName],
+                context: {
+                    // additional data can be passed via context
+                    languageCode: language,
+                    pageKey: pageName,
+                    menuStructure: siteStructure,
+                    pageSlugDictionary,
+                    pageTitleDictionary,
+                },
+            })
+            createPage({
+                path: `${makeLanguagePath(language, true)}/${pageName}.html`,
                 component: pageTemplates[pageName],
                 context: {
                     // additional data can be passed via context

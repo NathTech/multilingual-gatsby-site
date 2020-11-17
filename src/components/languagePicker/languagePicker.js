@@ -32,7 +32,9 @@ function LanguagePicker() {
     const handleLangChange = ({ language_code: languageCode }) => {
         handleCloseMenu()
         i18n.changeLanguage(languageCode)
-        const newSlug = pageSlugDictionary[languageCode][pageKey]
+        const slug = pageSlugDictionary[languageCode][pageKey]
+
+        const newSlug = typeof slug === 'undefined' ? pageKey : slug
 
         const path = makeLocalisedPath(languageCode, newSlug, pageKey)
         navigate(path)
