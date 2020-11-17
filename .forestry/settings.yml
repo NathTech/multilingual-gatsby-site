@@ -19,8 +19,8 @@ sections:
 - type: document
   path: src/data/menuStructure.json
   label: Menu
-upload_dir: uploads
-public_path: "/uploads"
+upload_dir: content/images
+public_path: "/content/images"
 front_matter_path: ''
 use_front_matter_path: false
 file_template: ":filename:"
