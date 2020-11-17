@@ -9,9 +9,9 @@ This is the home page where all of you dreams come true.
 
 You can add images...
 
-![](uploads/mountain-peak.jpg)
+![](/uploads/mountain-peak.jpg)
 
-![](uploads/mountain-peak.jpg)
+![](/uploads/mountain-peak.jpg)
 
 Videos by using the code block to embed them
 
