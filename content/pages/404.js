@@ -1,19 +1,33 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next'
-// import { Image } from '@material-ui/icons'
+import { graphql, useStaticQuery } from "gatsby"
+import Img from 'gatsby-image'
 
-import Layout from '../components/layout'
-import SEO from '../components/seo'
-import Link from '../components/link'
+import Layout from '../../src/components/layout'
+import SEO from '../../src/components/seo'
 
 function NotFoundPage() {
-    const { t } = useTranslation('error404')
+
+    const data = useStaticQuery(graphql`
+    {
+      file(relativePath: {regex: "/404.jpg/"}) {
+        childImageSharp {
+            fluid {
+            base64
+            aspectRatio
+            src
+            srcSet
+            sizes
+            }
+        }
+      }
+    }
+  `)
 
     return (
         <Layout>
-            <SEO title={t('title')} />
-            <img src="/src/assets/images/404.jpg" alt="" />
-            <Link to="/">{t('link')}</Link>
+            <SEO title="404" />
+            <Img fluid={data.file.childImageSharp.fluid} alt="404" />
+            <a href="http://www.freepik.com">Designed by pikisuperstar / Freepik</a>
         </Layout>
     )
 }

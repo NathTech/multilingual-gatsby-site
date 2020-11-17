@@ -18,7 +18,7 @@ const {
     menu_structure: menuStructure,
     pages,
 } = require('./src/data/menuStructure.json')
-const { makeLocalisedPath } = require('./src/utils/paths')
+const { makeLocalisedPath, makeLanguagePath } = require('./src/utils/paths')
 
 /**
  * Create a dictionary of page_keys and slugs for the menu structure for each language
@@ -120,6 +120,51 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
                 pageSlugDictionary,
                 pageTitleDictionary,
             },
+        })
+    })
+
+    const pageTemplates = {
+        404: require.resolve('./content/pages/404.js'),
+    }
+
+    const sitePages = await graphql(`
+    {
+      allFile(filter: {absolutePath: {regex: "/content\\/pages\\/[0-9a-zA-Z]*.js/"}}) {
+        edges {
+          node {
+            id
+            absolutePath
+            relativePath
+            name
+          }
+        }
+      }
+    }
+  `)
+    // Handle errors
+    if (sitePages.errors) {
+        reporter.panicOnBuild(`Error while running GraphQL query.`)
+        return
+    }
+
+    sitePages.data.allFile.edges.forEach(({ node }) => {
+        const pageName = node.name
+
+        if (!Object.keys(pageTemplates).includes(pageName)) return
+
+        languages.forEach((language) => {
+            createPage({
+                path: `${makeLanguagePath(language)}/${pageName}`,
+                component: pageTemplates[pageName],
+                context: {
+                    // additional data can be passed via context
+                    languageCode: language,
+                    pageKey: pageName,
+                    menuStructure: siteStructure,
+                    pageSlugDictionary,
+                    pageTitleDictionary,
+                },
+            })
         })
     })
 }
