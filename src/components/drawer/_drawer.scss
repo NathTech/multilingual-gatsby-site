@@ -1,8 +1,14 @@
+$menuItemGap: 50px;
+
 .drawer {
     width: 300px;
     @include themed {
         color: t(linkColor);
         background-color: t(backgroundColor);
+
+        .navLink[data-submenu-item="true"] {
+            color: t(otherLinkColor);
+        }
     }
     .drawerContents {
         display: flex;
@@ -13,10 +19,22 @@
             color: inherit;
             font-size: 27px;
             line-height: 30px;
-            margin-bottom: 50px;
+            margin-bottom: $menuItemGap;
             text-decoration: none;
             svg {
                 margin-right: 20px;
+            }
+
+            &[data-submenu-parent="true"] {
+                margin-bottom: $menuItemGap * 0.6;
+            }
+        }
+        .navSubMenu {
+            margin-bottom: $menuItemGap * 0.4;
+            .navLink {
+                padding-left: 2rem;
+                font-size: 1.6 * $font-size;
+                margin-bottom: $menuItemGap * 0.4;
             }
         }
     }
