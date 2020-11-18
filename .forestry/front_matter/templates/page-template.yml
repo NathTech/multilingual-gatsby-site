@@ -44,5 +44,6 @@ fields:
     left blank, this page will only be accessible via it's url, and won't be included
     in the menu
 pages:
+- content/pages/ar/1.md
 - content/pages/ar/الصفحة-الرئيسية.md
 - content/pages/ar/المكملات.md
