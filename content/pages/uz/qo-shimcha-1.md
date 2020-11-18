@@ -1,8 +1,8 @@
 ---
 language: uz
-page_key: supplement1
-title: qo'shimcha 1
-slug: qoshimcha-1
+page_key: useful-info
+title: Foydali ma'lumot
+slug: foydali-malumot
 
 ---
 Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Sed porttitor lectus nibh. Nulla quis lorem ut libero malesuada feugiat. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Donec rutrum congue leo eget malesuada.
