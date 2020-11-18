@@ -1,8 +1,8 @@
 ---
 language: en
-page_key: supplements
-title: Supplements
-slug: supplements
+page_key: about-us
+title: About Us
+slug: about-us
 
 ---
 # Supplements
