@@ -1,11 +1,9 @@
 {
   "languages": [
-    "ar",
     "en",
+    "ar",
     "uz",
-    "ky",
-    "de",
-    "non"
+    "de"
   ],
   "default_language": "en",
   "language_details": [
@@ -27,16 +25,6 @@
     {
       "language_name": "Узбек",
       "language_code": "uz",
-      "right_to_left": false
-    },
-    {
-      "language_name": "Кыргиз",
-      "language_code": "ky",
-      "right_to_left": false
-    },
-    {
-      "language_name": "Not in language list",
-      "language_code": "not",
       "right_to_left": false
     }
   ]
