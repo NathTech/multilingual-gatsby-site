@@ -1,27 +1,20 @@
-import React, { useState } from 'react'
-import { IconButton, SwipeableDrawer } from '@material-ui/core'
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Hidden, SwipeableDrawer, Drawer as MuDrawer } from '@material-ui/core'
 import { Link } from 'gatsby'
 
-import Menu from '../../assets/svg/navIcons/menu.svg'
 import { usePageContext } from '../pageContext'
 import { makeLocalisedPath } from '../../utils/paths'
 
-const Drawer = () => {
+const Drawer = ({ toggleDrawer, open }) => {
     const {
         menuStructure,
         languageCode,
         pageSlugDictionary,
         pageTitleDictionary,
     } = usePageContext()
-    const [openDrawer, setDrawerOpen] = useState(false)
-    const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent)
 
-    const toggleDrawer = open => event => {
-        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-            return
-        }
-        setDrawerOpen(open)
-    }
+    const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent)
 
     const createMenu = (menu) => menu
         .filter(({ pageKey }) => Object.keys(pageSlugDictionary[languageCode]).includes(pageKey))
@@ -65,28 +58,35 @@ const Drawer = () => {
 
     return (
         <>
-            <IconButton
-                aria-label="menu"
-                classes={{ root: 'navIconButton' }}
-                color="inherit"
-                onClick={toggleDrawer(true)}
-                data-test="drawer-button"
-            >
-                <Menu />
-            </IconButton>
-            <SwipeableDrawer
-                open={openDrawer}
-                classes={{ paper: 'drawer' }}
-                disableDiscovery={iOS}
-                onOpen={toggleDrawer(true)}
-                onClose={toggleDrawer(false)}
-                disableBackdropTransition={!iOS}
-                data-test="drawer-sidebar"
-            >
-                {mobileNavContents}
-            </SwipeableDrawer>
+
+            <Hidden mdUp>
+                <SwipeableDrawer
+                    open={open}
+                    classes={{ paper: 'drawer' }}
+                    disableDiscovery={iOS}
+                    onOpen={toggleDrawer(true)}
+                    onClose={toggleDrawer(false)}
+                    disableBackdropTransition={!iOS}
+                    data-test="drawer-sidebar"
+                >
+                    {mobileNavContents}
+                </SwipeableDrawer>
+            </Hidden>
+            <Hidden smDown>
+                <MuDrawer
+                    variant="permanent"
+                    classes={{ paper: 'drawer' }}
+                >
+                    {mobileNavContents}
+                </MuDrawer>
+            </Hidden>
         </>
     )
+}
+
+Drawer.propTypes = {
+    toggleDrawer: PropTypes.node.isRequired,
+    open: PropTypes.node.isRequired,
 }
 
 export default Drawer
