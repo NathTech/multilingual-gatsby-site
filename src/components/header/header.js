@@ -9,28 +9,48 @@ import ThemeToggle from '../themeToggle/themeToggle'
 
 import Logo from '../../assets/svg/logo.svg'
 import Menu from '../../assets/svg/navIcons/menu.svg'
+import { direction } from '../../utils/languages'
+import { usePageContext } from '../pageContext'
 
 const useStyles = makeStyles(theme => ({
     header: {
         [theme.breakpoints.up('md')]: {
             paddingLeft: '300px',
+            width: 'calc(100% - 300px)',
         }
+    },
+    headerRtl: {
+        [theme.breakpoints.up('md')]: {
+            paddingRight: '300px',
+            width: 'calc(100% - 300px)',
+        },
+        flexDirection: 'row-reverse'
     },
     menuIcon: {
         [theme.breakpoints.up('md')]: {
             display: 'none !important',
         }
+    },
+    navRHSRtl: {
+        flexDirection: 'row-reverse !important'
+    },
+    navLHSRtl: {
+        justifyContent: 'flex-end !important'
     }
 }))
 
 const Header = ({ toggleDrawer }) => {
 
     const classes = useStyles()
+    const { languageCode } = usePageContext()
+
+    const dir = direction(languageCode)
+    const isRtl = (dir === 'rtl')
 
     return (
-        <header className={classes.header}>
-            <nav>
-                <div className={classNames("navLHS")}>
+        <header>
+            <nav className={isRtl ? classes.headerRtl : classes.header}>
+                <div className={classNames("navLHS", { [classes.navLHSRtl]: isRtl })}>
                     <IconButton
                         aria-label="menu"
                         className={classes.menuIcon}
@@ -43,12 +63,12 @@ const Header = ({ toggleDrawer }) => {
                     </IconButton>
                 </div>
                 <Logo className="navLogo" />
-                <div className="navRHS">
+                <div className={classNames("navRHS", { [classes.navRHSRtl]: isRtl })}>
                     <LanguagePicker />
                     <ThemeToggle />
                 </div>
             </nav>
-        </header>
+        </header >
     )
 }
 
