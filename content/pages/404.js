@@ -7,7 +7,7 @@ import SEO from '../../src/components/seo'
 
 function NotFoundPage() {
 
-    const data = useStaticQuery(graphql`
+  const data = useStaticQuery(graphql`
     {
       file(relativePath: {regex: "/404.jpg/"}) {
         childImageSharp {
@@ -23,13 +23,13 @@ function NotFoundPage() {
     }
   `)
 
-    return (
-        <Layout>
-            <SEO title="404" />
-            <Img fluid={data.file.childImageSharp.fluid} alt="404" />
-            <a href="http://www.freepik.com">Designed by pikisuperstar / Freepik</a>
-        </Layout>
-    )
+  return (
+    <Layout>
+      <SEO title="404" />
+      <Img fluid={data.file.childImageSharp.fluid} alt="404" />
+      <a href="http://www.freepik.com" style={{ fontSize: '10px', marginTop: '10px', color: '#888888', textDecoration: 'none' }}>Designed by pikisuperstar / Freepik</a>
+    </Layout>
+  )
 }
 
 export default NotFoundPage
