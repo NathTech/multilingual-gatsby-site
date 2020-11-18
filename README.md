@@ -4,6 +4,8 @@ Based on [multilingual-gatsby-starter](https://github.com/charbelchahine/multili
 
 This is a gatsby starter, it supports multiple languages, Forestry, styling with Sass, Material-UI components & dark mode!
 
+[Live Preview](https://vibrant-colden-bdd2d7.netlify.app/)
+
 ## Table of Contents
 
 - [Multilingual Gatsby Forestry Starter](#multilingual-gatsby-forestry-starter)
