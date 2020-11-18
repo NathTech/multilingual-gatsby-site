@@ -112,8 +112,8 @@ const Drawer = ({ toggleDrawer, open }) => {
 }
 
 Drawer.propTypes = {
-    toggleDrawer: PropTypes.node.isRequired,
-    open: PropTypes.node.isRequired,
+    toggleDrawer: PropTypes.func.isRequired,
+    open: PropTypes.bool.isRequired,
 }
 
 export default Drawer
