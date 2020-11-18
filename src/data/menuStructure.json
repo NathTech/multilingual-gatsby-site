@@ -7,16 +7,16 @@
   ],
   "menu_structure": [
     {
-      "page_key": "about-us",
-      "home_page": "",
-      "submenu_page_keys": ""
-    },
-    {
       "page_key": "home",
       "home_page": true,
       "submenu_page_keys": [
 
       ]
+    },
+    {
+      "page_key": "about-us",
+      "home_page": "",
+      "submenu_page_keys": ""
     },
     {
       "page_key": "useful-info",
