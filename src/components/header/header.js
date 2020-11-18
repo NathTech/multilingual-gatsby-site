@@ -16,11 +16,13 @@ const useStyles = makeStyles(theme => ({
     header: {
         [theme.breakpoints.up('md')]: {
             paddingLeft: '300px',
+            width: 'calc(100% - 300px)',
         }
     },
     headerRtl: {
         [theme.breakpoints.up('md')]: {
             paddingRight: '300px',
+            width: 'calc(100% - 300px)',
         },
         flexDirection: 'row-reverse'
     },
