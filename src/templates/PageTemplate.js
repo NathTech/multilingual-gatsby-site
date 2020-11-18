@@ -6,16 +6,21 @@ import { Card, CardContent } from '@material-ui/core'
 
 import Layout from '../components/layout'
 import SEO from '../components/seo'
+import { usePageContext } from '../components/pageContext'
+import { direction } from '../utils/languages'
 
 function PageTemplate({ data }) {
     // this data prop will be injected by the GraphQL query below.
     const { frontmatter, html } = data.markdownRemark // data.markdownRemark holds your post data
+    const { languageCode } = usePageContext()
+
+    const dir = direction(languageCode)
 
     return (
         <Layout>
             <SEO title={frontmatter.title} />
             <Card>
-                <CardContent>
+                <CardContent dir={dir}>
                     <h1>{frontmatter.title}</h1>
                     <Markdown source={html} escapeHtml={false} />
                 </CardContent>
