@@ -2,8 +2,7 @@
   "languages": [
     "en",
     "ar",
-    "uz",
-    "de"
+    "uz"
   ],
   "default_language": "en",
   "language_details": [
@@ -20,11 +19,6 @@
     {
       "language_name": "Узбек",
       "language_code": "uz",
-      "right_to_left": false
-    },
-    {
-      "language_name": "Deutsch",
-      "language_code": "de",
       "right_to_left": false
     }
   ]
