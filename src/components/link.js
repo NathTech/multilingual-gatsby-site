@@ -2,14 +2,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link as GatsbyLink } from 'gatsby'
-import { useTranslation } from 'react-i18next'
-import { currentLanguages } from '../i18n/config/currentLanguages'
+
+import { languages } from '../data/languages.json'
+import { makeLanguagePath } from '../utils/paths'
+import { usePageContext } from './pageContext'
 
 const Link = ({ to, ref, ...rest }) => {
-    const { i18n } = useTranslation()
-    const currentLanguage = currentLanguages.find(language => i18n.language === language.shorthand)
+    const { languageCode } = usePageContext()
+    const currentLanguage = languages.find(language => language === languageCode)
 
-    return <GatsbyLink {...rest} to={`${currentLanguage.path}${to}`} />
+    return <GatsbyLink {...rest} to={`${makeLanguagePath(currentLanguage)}${to}`} />
 }
 
 Link.propTypes = {
