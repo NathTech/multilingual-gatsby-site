@@ -1,10 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Hidden, SwipeableDrawer, Drawer as MuDrawer } from '@material-ui/core'
+import classNames from 'classnames'
+
+import { Hidden, SwipeableDrawer, Drawer as MuDrawer, makeStyles } from '@material-ui/core'
 import { Link } from 'gatsby'
 
 import { usePageContext } from '../pageContext'
 import { makeLocalisedPath } from '../../utils/paths'
+import { direction } from '../../utils/languages'
+
+const useStyles = makeStyles({
+    navSubMenuItem: {
+        paddingLeft: '2rem',
+    },
+    navSubMenuItemRTL: {
+        paddingRight: '2rem',
+    },
+})
 
 const Drawer = ({ toggleDrawer, open }) => {
     const {
@@ -14,7 +26,11 @@ const Drawer = ({ toggleDrawer, open }) => {
         pageTitleDictionary,
     } = usePageContext()
 
+    const classes = useStyles()
+
     const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent)
+
+    const dir = direction(languageCode)
 
     const createMenu = (menu) => menu
         .filter(({ pageKey }) => Object.keys(pageSlugDictionary[languageCode]).includes(pageKey))
@@ -27,10 +43,18 @@ const Drawer = ({ toggleDrawer, open }) => {
 
             const subMenuLinks = subMenu && createMenu(subMenu)
             const isSubMenuItem = typeof subMenu === 'undefined'
+            const isRtlSubMenuItem = isSubMenuItem && dir === 'rtl'
             const hasSubMenu = subMenuLinks && subMenuLinks.length > 0
 
             return (
-                <div className="navItem" key={`${pageKey}wrap`}>
+                <div
+                    className={classNames(
+                        "navItem",
+                        { [classes.navSubMenuItem]: isSubMenuItem },
+                        { [classes.navSubMenuItemRTL]: isRtlSubMenuItem }
+                    )}
+                    key={`${pageKey}wrap`}
+                >
                     <Link to={path} key={pageKey} className="navLink" data-submenu-item={isSubMenuItem} data-submenu-parent={hasSubMenu}>
                         {title}
                     </Link>
@@ -51,6 +75,7 @@ const Drawer = ({ toggleDrawer, open }) => {
             className="drawerContents"
             onClick={toggleDrawer(false)}
             onKeyDown={toggleDrawer(false)}
+            dir={dir}
         >
             {menuList}
         </div>
@@ -68,6 +93,7 @@ const Drawer = ({ toggleDrawer, open }) => {
                     onClose={toggleDrawer(false)}
                     disableBackdropTransition={!iOS}
                     data-test="drawer-sidebar"
+                    anchor={dir === 'rtl' ? 'right' : 'left'}
                 >
                     {mobileNavContents}
                 </SwipeableDrawer>
@@ -76,6 +102,7 @@ const Drawer = ({ toggleDrawer, open }) => {
                 <MuDrawer
                     variant="permanent"
                     classes={{ paper: 'drawer' }}
+                    anchor={dir === 'rtl' ? 'right' : 'left'}
                 >
                     {mobileNavContents}
                 </MuDrawer>
